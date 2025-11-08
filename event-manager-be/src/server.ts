@@ -4,24 +4,6 @@ import { WebSocketServer } from "ws";
 import app from "./app";
 import { config } from "./config/env";
 import { registerSeatWsHandlers } from "./websockets/seat.ws";
-import fs from "fs-extra";
-
-import path from "path";
-const envPath = path.resolve(process.cwd(), ".env");
-const examplePath = path.resolve(process.cwd(), ".env.example");
-
-if (!fs.existsSync(envPath)) {
-  console.log("⚡ .env not found, creating from .env.example...");
-  fs.copySync(examplePath, envPath);
-  console.log("✅ .env created!");
-}
-
-// Now you can load env normally
-import dotenvSafe from "dotenv-safe";
-dotenvSafe.config({
-  allowEmptyValues: false,
-  example: ".env.example",
-});
 
 const server = http.createServer(app);
 const wss = new WebSocketServer({ noServer: true });
